@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+  <property name="log_folder" value="logs"/>
+  <property name="defaultPattern" value="[%-5p]%d{[dd/MM/yy HH:mm:ss:SSS z]}"/>
+
+  <!-- File logger -->
+  <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${log_folder}/flink-job-cluster-uploader.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>${log_folder}/flink-job-cluster-uploader_%d{yyyy-MM-dd}_%i.log.zip</fileNamePattern>
+      <maxFileSize>100MB</maxFileSize>
+      <maxHistory>7</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>${defaultPattern} %p %c:%L %m %n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- Console logger -->
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <pattern>${defaultPattern} %p %c:%L %m %n</pattern>
+    </layout>
+  </appender>
+
+  <root level="DEBUG">
+    <appender-ref ref="file"/>
+    <appender-ref ref="console"/>
+  </root>
+
+</configuration>
